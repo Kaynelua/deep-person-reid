@@ -147,7 +147,7 @@ def visualize_ranked_results(
         if data_type == 'image':
             classID = qimg_path_name.split('/')[-2]
             imname = osp.basename(osp.splitext(qimg_path_name)[0])
-            cv2.imwrite(osp.join(save_dir, 'c' + classID + imname + '.jpg'), grid_img)
+            cv2.imwrite(osp.join(save_dir, 'c' + classID + '_' + imname + '.jpg'), grid_img)
 
         if (q_idx+1) % 500 == 0:
             print('- done {}/{}'.format(q_idx + 1, num_q))

@@ -1,9 +1,10 @@
-python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --transforms random_flip random_erase --root data/ data.save_dir log/osnet_x1_0_university1652_softmax_cosinelr_trial1
-
+make run
 docker ps -all
 docker exec -it <container_id> /bin/bash
 tensorboard --logdir=log/osnet_x1_0_university1652_softmax_cosinelr_trial1
 
+Training cmds
+python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --transforms random_flip random_erase --root data/ data.save_dir log/osnet_x1_0_university1652_softmax_cosinelr_trial1
 
 test commands:
-python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --transforms random_flip random_erase --root data/ model.load_weights log/osnet_x1_0_university1652_softmax_cosinelr_trial1/model/model.pth.tar-250 test.evaluate True test.visrank True data.save_dir log/osnet_x1_0_university1652_softmax_cosinelr_trial1 test.dist_metric cosine
+python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --transforms random_flip random_erase --root data/ model.load_weights log/osnet_x1_0_university1652_softmax_cosinelr_trial1/model/model.pth.tar-250 test.evaluate True test.visrank True data.save_dir log/osnet_x1_0_university1652_softmax_cosinelr_Places365 test.dist_metric cosine
