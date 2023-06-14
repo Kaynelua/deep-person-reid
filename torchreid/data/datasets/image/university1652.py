@@ -46,7 +46,7 @@ class University1652(ImageDataset):
         transforms=['random_flip', 'random_crop']
     )
     """
-    dataset_dir = 'places365'#'university1652'
+    dataset_dir = 'university1652' #'places365'
     dataset_url = 'https://drive.google.com/uc?id=1iVnP4gjw-iHXa0KerZQ1IfIO0i1jADsR'
 
     def __init__(self, root='', **kwargs):
@@ -63,10 +63,10 @@ class University1652(ImageDataset):
             self.dataset_dir, 'University-Release/train/'
         )
         self.query_dir = osp.join(
-            self.dataset_dir, 'University-Release/test/query_imgs' #each folder within this folder is a class on its own (4 digits)
+            self.dataset_dir, 'University-Release/test/query_drone'#_imgs' #each folder within this folder is a class on its own (4 digits)
         )
         self.gallery_dir = osp.join(
-            self.dataset_dir, 'University-Release/test/gallery_imgs' #each folder within this folder is a class on its own (4 digits)
+            self.dataset_dir, 'University-Release/test/gallery_satellite'#_imgs' #each folder within this folder is a class on its own (4 digits)
         )
 
         required_files = [
