@@ -17,6 +17,10 @@ loss:
   triplet:
     margin: 0.3
 
+sampler:
+  train_sampler: RandomIdentitySampler
+  train_sampler_t: RandomIdentitySampler
+
 train:
   optim: 'amsgrad'
   lr: 0.0015
@@ -31,5 +35,5 @@ test:
   dist_metric: 'euclidean'
   normalize_feature: False
   evaluate: False
-  eval_freq: -1
+  eval_freq: 5
   rerank: False
