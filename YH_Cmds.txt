@@ -6,11 +6,26 @@ tensorboard --logdir=log/osnet_x1_0_university1652_softmax_cosinelr_trial1
 Training cmds
 python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --transforms random_flip random_erase --root data/ data.save_dir log/osnet_x1_0_university1652_softmax_cosinelr_trial1
 
-test commands:
+
+test commands on places365 just need to change dataset_dir in university1652.py script:
 python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --transforms random_flip random_erase --root data/ model.load_weights log/osnet_x1_0_university1652_softmax_cosinelr_trial1/model/model.pth.tar-250 test.evaluate True test.visrank True data.save_dir log/osnet_x1_0_university1652_softmax_cosinelr_Places365 test.dist_metric cosine
 
 test commands on places365 Model done by changing dataset_dir in torchreid/data/datasets/image/university1652.py
 
 Training cmds using triplet loss (Triplet loss doesnt seem to work with OSNet)
 python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine_tripletloss.yaml --root data/
+
+
+Training cmds with OSNet-AIN which has better cross domain generalizability:
+python scripts/main.py --config-file configs/im_osnet_ain_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --root data/ data.save_dir log/osnet_ain_x1_0_university1652_softmax_cosinelr_trial1
+
+
+test commands with OSNet-AIN on Places365:
+python scripts/main.py --config-file configs/im_osnet_ain_x1_0_softmax_256x128_amsgrad_cosine.yaml -s university1652 -t university1652 --root data/ model.load_weights log/osnet_ain_x1_0_university1652_softmax_cosinelr_trial1/model/model.pth.tar-100 test.evaluate True test.visrank True data.save_dir log/osnet_ain_x1_0_university1652_softmax_cosinelr_Places365 test.dist_metric cosine
+
+train on Places365
+python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s places365_large -t places365_large --transforms random_flip random_erase --root data/ data.save_dir log/osnet_x1_0_places365_large_softmax_cosinelr_trial1 train.max_epochs 100 train.lr 0.001
+
+test on Places365(400 gallery, 100 query per class)
+python scripts/main.py --config-file configs/im_osnet_x1_0_softmax_256x128_amsgrad_cosine.yaml -s places365_large -t places365_large --transforms random_flip random_erase --root data/ model.load_weights log/osnet_x1_0_places365_large_softmax_cosinelr_trial1/model/model.pth.tar-100 test.evaluate True test.visrank True data.save_dir log/osnet_x1_0_places365_large_softmax_cosinelr_trial1 test.dist_metric cosine
 

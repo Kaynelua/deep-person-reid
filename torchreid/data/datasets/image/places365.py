@@ -7,7 +7,7 @@ import gdown
 from ..dataset import ImageDataset
 
 
-class University1652(ImageDataset):
+class Places365(ImageDataset):
     """University-1652.
 
     Reference:
@@ -46,8 +46,7 @@ class University1652(ImageDataset):
         transforms=['random_flip', 'random_crop']
     )
     """
-    dataset_dir = 'places365'#'university1652' #
-    dataset_url = 'https://drive.google.com/uc?id=1iVnP4gjw-iHXa0KerZQ1IfIO0i1jADsR'
+    dataset_dir = 'places365_large'#'university1652' #
 
     def __init__(self, root='', **kwargs):
         self.root = osp.abspath(osp.expanduser(root))
@@ -60,13 +59,13 @@ class University1652(ImageDataset):
             )
             os.system('unzip %s' % (self.dataset_dir + 'data.zip'))""" #Commented out assume downloaded places 365 dataset
         self.train_dir = osp.join(
-            self.dataset_dir, 'University-Release/train/'
+            self.dataset_dir, 'train/' # img 1 to 4500
         )
         self.query_dir = osp.join(
-            self.dataset_dir, 'University-Release/test/query_imgs'#query_drone'# #each folder within this folder is a class on its own (4 digits)
+            self.dataset_dir, 'test/query'#query_drone'# #each folder within this folder is a class on its own (4 digits) img 4901 to 5000
         )
         self.gallery_dir = osp.join(
-            self.dataset_dir, 'University-Release/test/gallery_imgs'#gallery_satellite'# #each folder within this folder is a class on its own (4 digits)
+            self.dataset_dir, 'test/gallery'#gallery_satellite'# #each folder within this folder is a class on its own (4 digits) img 4501 to 4900
         )
 
         required_files = [
@@ -79,7 +78,7 @@ class University1652(ImageDataset):
         query = self.process_dir(self.query_dir, relabel=False)
         gallery = self.process_dir(self.gallery_dir, relabel=False)
 
-        super(University1652, self).__init__(train, query, gallery, **kwargs)
+        super(Places365, self).__init__(train, query, gallery, **kwargs)
 
     def process_dir(self, dir_path, relabel=False, train=False):
         IMG_EXTENSIONS = (
@@ -87,7 +86,7 @@ class University1652(ImageDataset):
             '.webp'
         )
         if train:
-            img_paths = glob.glob(osp.join(dir_path, '*/*/*'))
+            img_paths = glob.glob(osp.join(dir_path, '*/*'))
         else:
             img_paths = glob.glob(osp.join(dir_path, '*/*'))
         pid_container = set()
